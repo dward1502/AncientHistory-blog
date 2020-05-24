@@ -3,7 +3,7 @@ const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 const { fmImagesToRelative } = require('gatsby-remark-relative-images')
 
-exports.createPages = ({ actions, graphql }) => {
+exports.createPages = ({actions,graphql}) => {
   const { createPage } = actions
 
   return graphql(`
@@ -24,7 +24,7 @@ exports.createPages = ({ actions, graphql }) => {
       }
     }
   `).then(result => {
-    if (result.errors) {
+    if(result.errors) {
       result.errors.forEach(e => console.error(e.toString()))
       return Promise.reject(result.errors)
     }
@@ -34,23 +34,21 @@ exports.createPages = ({ actions, graphql }) => {
     posts.forEach(edge => {
       const id = edge.node.id
       createPage({
-        path: edge.node.fields.slug,
+        path:edge.node.fields.slug,
         tags: edge.node.frontmatter.tags,
         component: path.resolve(
           `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
         ),
-        // additional data can be passed via context
-        context: {
-          id,
-        },
+        context:{
+          id
+        }
       })
     })
-
     // Tag pages:
     let tags = []
     // Iterate through each post, putting all found tags into `tags`
     posts.forEach(edge => {
-      if (_.get(edge, `node.frontmatter.tags`)) {
+      if(_.get(edge, `node.frontmatter.tags`)){
         tags = tags.concat(edge.node.frontmatter.tags)
       }
     })
@@ -60,28 +58,26 @@ exports.createPages = ({ actions, graphql }) => {
     // Make tag pages
     tags.forEach(tag => {
       const tagPath = `/tags/${_.kebabCase(tag)}/`
-
       createPage({
-        path: tagPath,
-        component: path.resolve(`src/templates/tags.js`),
-        context: {
-          tag,
-        },
+        path:tagPath,
+        component:path.resolve(`src/templates/tags.js`),
+        context:{
+          tag
+        }
       })
     })
   })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({node, actions, getNode}) => {
   const { createNodeField } = actions
   fmImagesToRelative(node) // convert image paths for gatsby images
-
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
+  if(node.internal.type === `MarkdownRemark`) {
+    const value = createFilePath({node, getNode})
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value
     })
   }
 }
