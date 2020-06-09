@@ -1,0 +1,39 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: yellowgreen;
+  width: 100%;
+  height: 50rem;
+  padding: 1rem;
+  border-radius: 2.5rem;
+  &_Img{
+    width: 100%;
+    margin-top: -5rem;
+    & img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+      border-radius: 2.5rem;
+    }
+  }
+  &_text {
+    font-family: $font-caladea;
+    font-size: 2.5rem;
+    color: rgb(22, 22, 22);
+    margin-top: 4rem;
+  }
+  &_link {
+    margin-top: 6rem;
+    text-decoration: none;
+    border: solid 1px black;
+    border-radius: 1.5rem;
+    background-color: black;
+    color: white;
+    font-size: 2rem;
+    padding: 2rem 3rem;
+    width: 20rem;
+    text-align: center;
+  }
+}

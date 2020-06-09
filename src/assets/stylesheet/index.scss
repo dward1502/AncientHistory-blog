@@ -2,8 +2,10 @@
 @import './base/base';
 @import './base/animations';
 @import './base/mixins';
-// @import './base/footer';
-// @import './base/button';
-
+@import './base/typography';
+@import './base/utilities';
+@import './base/grid';
 
 @import './components/navigation';
+@import './components/cardsHome';
+@import './components/home';
